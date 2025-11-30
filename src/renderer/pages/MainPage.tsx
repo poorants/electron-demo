@@ -1,15 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "../stores/authStore";
 import Topbar from "../components/layout/Topbar";
 import Sidebar from "../components/layout/Sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 type ContentView = "dashboard" | "settings" | "account";
 
 function MainPage() {
   const { user } = useAuthStore();
   const [currentView, setCurrentView] = useState<ContentView>("dashboard");
+  const [sidebarWidth, setSidebarWidth] = useState(240);
+  const [isResizing, setIsResizing] = useState(false);
+  const [isHandleHovered, setIsHandleHovered] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      if (!isResizing) return;
+      const minWidth = 180;
+      const maxWidth = 360;
+      const nextWidth = Math.min(maxWidth, Math.max(minWidth, event.clientX));
+      setSidebarWidth(nextWidth);
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+    };
+
+    if (isResizing) {
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
+    }
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isResizing]);
 
   const renderContent = () => {
     switch (currentView) {
@@ -83,7 +111,25 @@ function MainPage() {
     <div className="h-screen flex flex-col">
       <Topbar onAccountClick={() => setCurrentView("account")} />
       <div className="flex-1 flex overflow-hidden">
-        <Sidebar currentView={currentView} onNavigate={setCurrentView} />
+        <Sidebar
+          currentView={currentView}
+          onNavigate={setCurrentView}
+          width={sidebarWidth}
+        />
+        <div className="relative flex-shrink-0">
+          <div
+            className="absolute -left-3 top-0 bottom-0 w-6 cursor-col-resize"
+            onMouseDown={() => setIsResizing(true)}
+            onMouseEnter={() => setIsHandleHovered(true)}
+            onMouseLeave={() => setIsHandleHovered(false)}
+          />
+          <span
+            className={cn(
+              "block h-full transition-all duration-150 bg-border",
+              isHandleHovered ? "w-[6px] bg-neutral-900" : "w-px"
+            )}
+          />
+        </div>
         <main className="flex-1 bg-muted/40 p-6 overflow-y-auto">
           {renderContent()}
         </main>

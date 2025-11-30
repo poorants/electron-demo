@@ -10,6 +10,7 @@
     "build:renderer": "vite build",
     "build:main": "tsc -p tsconfig.node.json",
     "start": "electron .",
+    "launch": "npm run build && npm start",
     "pack": "npm run build && electron-builder --dir",
     "dist": "npm run build && electron-builder"
   },
