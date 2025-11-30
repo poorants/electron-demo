@@ -6,6 +6,82 @@
   box-sizing: border-box;
 }
 
+@layer components {
+  .layer-header {
+    min-height: var(--layer-header-height);
+    padding: var(--layer-header-padding-y) var(--layer-header-padding-x);
+  }
+
+  .layer-header-bg {
+    background-color: var(--layer-header-bg);
+  }
+
+  .layer-shell-bg {
+    background-color: var(--layer-shell-bg);
+  }
+
+  .layer-content-bg {
+    background-color: var(--layer-content-bg);
+  }
+
+  .layer-content-padding {
+    padding: var(--layer-content-padding);
+  }
+
+  .sidebar-icon-button {
+    padding: var(--sidebar-icon-padding);
+  }
+
+  .sidebar-icon {
+    width: var(--sidebar-icon-size);
+    height: var(--sidebar-icon-size);
+  }
+
+  .sidebar-nav {
+    padding-top: var(--sidebar-nav-padding-y);
+    padding-bottom: var(--sidebar-nav-padding-y);
+    gap: var(--sidebar-icon-gap);
+  }
+
+  .icon-sidebar {
+    width: var(--icon-sidebar-width);
+  }
+
+  .sub-sidebar {
+    min-width: var(--sub-sidebar-min-width);
+  }
+
+  .resize-handle-root {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .resize-handle-hit {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--resize-hit-offset) * -1);
+    width: var(--resize-hit-width);
+    cursor: col-resize;
+  }
+
+  .resize-handle-line {
+    width: var(--resize-line-width);
+    background-color: var(--resize-line-color);
+  }
+
+  .resize-handle-hover-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--resize-hover-line-width);
+    border-radius: var(--resize-hover-line-radius);
+    background-color: var(--resize-hover-line-color);
+  }
+}
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -41,6 +117,28 @@ body {
     --chart-4: 0 0% 70%;
     --chart-5: 0 0% 80%;
     --radius: 0.5rem;
+    --layer-header-height: 36px;
+    --layer-header-padding-x: 8px;
+    --layer-header-padding-y: 8px;
+    --layer-header-bg: #fcfcfc;
+    --layer-shell-bg: #f6f8fa;
+    --layer-content-bg: #ffffff;
+    --layer-content-padding: 24px;
+    --sidebar-icon-padding: 4px;
+    --sidebar-icon-gap: 4px;
+    --sidebar-nav-padding-y: 8px;
+    --sidebar-icon-size: 18px;
+    --icon-sidebar-width: 48px;
+    --sub-sidebar-min-width: 160px;
+    --sub-sidebar-initial-width: 220px;
+    --resize-hit-width: 16px;
+    --resize-hit-offset: 8px;
+    --resize-line-width: 1px;
+    --border-color-token: hsl(var(--border));
+    --resize-line-color: var(--border-color-token);
+    --resize-hover-line-width: 3px;
+    --resize-hover-line-radius: 9999px;
+    --resize-hover-line-color: rgba(17, 24, 39, 0.8);
   }
   .dark {
     --background: 0 0% 6%;

@@ -1,2 +1,2 @@
 export const LAYOUT_HEADER_CLASS =
-  "min-h-[36px] px-2 py-2 flex items-center border-b bg-[#FCFCFC]";
+  "layer-header layer-header-bg flex items-center border-b";

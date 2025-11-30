@@ -24,37 +24,37 @@ export function IconSidebar({
 }: IconSidebarProps) {
   return (
     <LayerSection
-      className="w-12 bg-[#F6F8FA] flex-shrink-0"
+      className="icon-sidebar layer-shell-bg flex-shrink-0"
       header={
         <button
           onClick={onToggle}
-          className="p-[4px] rounded hover:bg-muted transition-colors"
+          className="sidebar-icon-button rounded hover:bg-muted transition-colors"
           aria-label="Toggle sidebar"
         >
           {isExpanded ? (
-            <PanelLeftClose className="h-[18px] w-[18px] text-muted-foreground/80" />
+            <PanelLeftClose className="sidebar-icon text-muted-foreground/80" />
           ) : (
-            <PanelRightOpen className="h-[18px] w-[18px] text-muted-foreground/80" />
+            <PanelRightOpen className="sidebar-icon text-muted-foreground/80" />
           )}
         </button>
       }
       headerClassName="justify-center"
-      contentClassName="border-r flex"
+      contentClassName="border-r flex layer-shell-bg"
     >
-      <nav className="flex flex-1 flex-col items-center gap-1 py-2">
+      <nav className="flex flex-1 flex-col items-center sidebar-nav">
         {sidebarMenuItems.map(({ id, icon: Icon, label }) => (
           <button
             key={id}
             onClick={() => onNavigate(id)}
             className={cn(
-              "p-[4px] rounded transition-colors",
+              "sidebar-icon-button rounded transition-colors",
               currentView === id
                 ? "bg-secondary text-secondary-foreground/80"
                 : "text-muted-foreground/80 hover:bg-muted hover:text-muted-foreground"
             )}
             aria-label={label}
           >
-            <Icon className="h-[18px] w-[18px]" />
+            <Icon className="sidebar-icon" />
           </button>
         ))}
       </nav>
@@ -65,14 +65,14 @@ export function IconSidebar({
 export function SubSidebar() {
   return (
     <LayerSection
-      className="w-full h-full bg-[#F6F8FA]"
+      className="w-full h-full layer-shell-bg"
       header={
         <div className="px-3 text-xs text-muted-foreground w-full">
           {/* Reserved for future sub-sidebar header content */}
         </div>
       }
-      headerClassName="bg-[#FCFCFC]"
-      contentClassName="bg-[#F6F8FA]"
+      headerClassName="layer-header-bg"
+      contentClassName="layer-shell-bg"
     >
       <div className="flex-1" />
     </LayerSection>

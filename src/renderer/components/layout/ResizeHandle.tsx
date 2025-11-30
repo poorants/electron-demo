@@ -11,18 +11,13 @@ function ResizeHandle({ onMouseDown, className }: ResizeHandleProps) {
 
   return (
     <div
-      className={cn("relative flex-shrink-0", className)}
+      className={cn("resize-handle-root", className)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div
-        className="absolute inset-y-0 -left-2 w-4 cursor-col-resize"
-        onMouseDown={onMouseDown}
-      />
-      <div className="h-full w-px bg-border" />
-      {isHovered && (
-        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[3px] rounded bg-foreground/80" />
-      )}
+      <div className="resize-handle-hit" onMouseDown={onMouseDown} />
+      <div className="h-full resize-handle-line" />
+      {isHovered && <div className="resize-handle-hover-line" />}
     </div>
   );
 }
