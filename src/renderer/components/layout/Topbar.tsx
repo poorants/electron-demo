@@ -31,13 +31,13 @@ function Topbar({ onAccountClick }: TopbarProps) {
   };
 
   return (
-    <header className="h-12 flex items-center justify-between px-4 flex-shrink-0 text-foreground">
-      <div className="font-semibold text-base tracking-tight">Demo App</div>
+    <header className="h-8 flex items-center justify-between px-3 flex-shrink-0 text-foreground">
+      <div className="font-semibold text-sm tracking-tight">Demo App</div>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="flex items-center rounded-full p-[1px] outline-none transition hover:bg-muted/80">
-            <Avatar className="h-7 w-7 border border-border">
+          <button className="flex items-center rounded-full p-px outline-none transition hover:bg-muted/80">
+            <Avatar className="h-5 w-5 border border-border">
               <AvatarImage
                 src={user?.profile.picture}
                 alt={user?.profile.name}
@@ -46,10 +46,10 @@ function Topbar({ onAccountClick }: TopbarProps) {
             </Avatar>
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-64">
+        <DropdownMenuContent align="end" className="w-56">
           <DropdownMenuLabel className="font-normal">
             <div className="flex items-center gap-3">
-              <Avatar className="h-9 w-9">
+              <Avatar className="h-6 w-6">
                 <AvatarImage
                   src={user?.profile.picture}
                   alt={user?.profile.name}
@@ -59,10 +59,10 @@ function Topbar({ onAccountClick }: TopbarProps) {
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col">
-                <p className="text-sm font-medium leading-none">
+                <p className="text-xs font-medium leading-none">
                   {user?.profile.name}
                 </p>
-                <p className="text-xs leading-none text-muted-foreground">
+                <p className="text-[10px] leading-none text-muted-foreground">
                   {user?.profile.email}
                 </p>
               </div>

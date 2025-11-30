@@ -55,9 +55,16 @@ export function IconSidebar({
   );
 }
 
-export function SubSidebar() {
+interface SubSidebarProps {
+  width: number;
+}
+
+export function SubSidebar({ width }: SubSidebarProps) {
   return (
-    <aside className="w-44 border-r bg-card flex flex-col py-2 flex-shrink-0">
+    <aside
+      className="border-r bg-card flex flex-col py-2 flex-shrink-0"
+      style={{ width }}
+    >
       {/* Empty for now */}
     </aside>
   );
