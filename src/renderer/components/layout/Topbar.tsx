@@ -31,31 +31,41 @@ function Topbar({ onAccountClick }: TopbarProps) {
   };
 
   return (
-    <header className="h-14 bg-primary text-primary-foreground flex items-center justify-between px-5 flex-shrink-0">
-      <div className="font-bold text-lg">Demo App</div>
+    <header className="h-12 flex items-center justify-between px-4 flex-shrink-0 text-foreground">
+      <div className="font-semibold text-base tracking-tight">Demo App</div>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-white/10 transition-colors outline-none">
-            <Avatar className="h-8 w-8">
+          <button className="flex items-center rounded-full p-[1px] outline-none transition hover:bg-muted/80">
+            <Avatar className="h-7 w-7 border border-border">
               <AvatarImage
                 src={user?.profile.picture}
                 alt={user?.profile.name}
               />
               <AvatarFallback>{getInitials(user?.profile.name)}</AvatarFallback>
             </Avatar>
-            <span className="text-sm font-medium">{user?.profile.name}</span>
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuContent align="end" className="w-64">
           <DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">
-                {user?.profile.name}
-              </p>
-              <p className="text-xs leading-none text-muted-foreground">
-                {user?.profile.email}
-              </p>
+            <div className="flex items-center gap-3">
+              <Avatar className="h-9 w-9">
+                <AvatarImage
+                  src={user?.profile.picture}
+                  alt={user?.profile.name}
+                />
+                <AvatarFallback>
+                  {getInitials(user?.profile.name)}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <p className="text-sm font-medium leading-none">
+                  {user?.profile.name}
+                </p>
+                <p className="text-xs leading-none text-muted-foreground">
+                  {user?.profile.email}
+                </p>
+              </div>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />

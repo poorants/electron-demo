@@ -1,42 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuthStore } from "../stores/authStore";
 import Topbar from "../components/layout/Topbar";
-import Sidebar from "../components/layout/Sidebar";
+import { IconSidebar, SubSidebar } from "../components/layout/Sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import ResizeHandle from "../components/layout/ResizeHandle";
 
 type ContentView = "dashboard" | "settings" | "account";
 
 function MainPage() {
   const { user } = useAuthStore();
   const [currentView, setCurrentView] = useState<ContentView>("dashboard");
-  const [sidebarWidth, setSidebarWidth] = useState(240);
-  const [isResizing, setIsResizing] = useState(false);
-
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!isResizing) return;
-      const minWidth = 180;
-      const maxWidth = 360;
-      const nextWidth = Math.min(maxWidth, Math.max(minWidth, event.clientX));
-      setSidebarWidth(nextWidth);
-    };
-
-    const handleMouseUp = () => {
-      setIsResizing(false);
-    };
-
-    if (isResizing) {
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("mouseup", handleMouseUp);
-    }
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [isResizing]);
+  const [isSubSidebarOpen, setIsSubSidebarOpen] = useState(false);
 
   const renderContent = () => {
     switch (currentView) {
@@ -107,15 +81,16 @@ function MainPage() {
   };
 
   return (
-    <div className="h-screen flex flex-col">
-      <Topbar onAccountClick={() => setCurrentView("account")} />
-      <div className="flex-1 flex overflow-hidden">
-        <Sidebar
-          currentView={currentView}
-          onNavigate={setCurrentView}
-          width={sidebarWidth}
-        />
-        <ResizeHandle onMouseDown={() => setIsResizing(true)} />
+    <div className="h-screen flex bg-background">
+      <IconSidebar
+        currentView={currentView}
+        onNavigate={setCurrentView}
+        isExpanded={isSubSidebarOpen}
+        onToggle={() => setIsSubSidebarOpen((prev) => !prev)}
+      />
+      {isSubSidebarOpen && <SubSidebar />}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <Topbar onAccountClick={() => setCurrentView("account")} />
         <main className="flex-1 bg-muted/40 p-6 overflow-y-auto">
           {renderContent()}
         </main>

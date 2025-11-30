@@ -1,40 +1,64 @@
+import { Home, Settings, PanelLeftClose, PanelRightOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 
-interface SidebarProps {
+export const sidebarMenuItems = [
+  { id: "dashboard", label: "대시보드", icon: Home },
+  { id: "settings", label: "설정", icon: Settings },
+] as const;
+
+export type SidebarViewId = (typeof sidebarMenuItems)[number]["id"];
+
+interface IconSidebarProps {
   currentView: string;
-  onNavigate: (view: "dashboard" | "settings" | "account") => void;
-  width: number;
+  onNavigate: (view: SidebarViewId) => void;
+  isExpanded: boolean;
+  onToggle: () => void;
 }
 
-function Sidebar({ currentView, onNavigate, width }: SidebarProps) {
-  const menuItems = [
-    { id: "dashboard", label: "대시보드" },
-    { id: "settings", label: "설정" },
-  ] as const;
-
+export function IconSidebar({
+  currentView,
+  onNavigate,
+  isExpanded,
+  onToggle,
+}: IconSidebarProps) {
   return (
-    <aside
-      className="border-r bg-card flex-shrink-0 py-4"
-      style={{ width: `${width}px` }}
-    >
-      <nav className="space-y-1 px-2">
-        {menuItems.map((item) => (
-          <Button
-            key={item.id}
-            variant={currentView === item.id ? "secondary" : "ghost"}
+    <aside className="w-12 border-r bg-card flex flex-col py-2 flex-shrink-0">
+      <button
+        onClick={onToggle}
+        className="mx-auto mb-2 p-1.5 rounded hover:bg-muted transition-colors"
+        aria-label="Toggle sidebar"
+      >
+        {isExpanded ? (
+          <PanelLeftClose className="h-3.5 w-3.5" />
+        ) : (
+          <PanelRightOpen className="h-3.5 w-3.5" />
+        )}
+      </button>
+      <nav className="flex flex-col items-center gap-1">
+        {sidebarMenuItems.map(({ id, icon: Icon, label }) => (
+          <button
+            key={id}
+            onClick={() => onNavigate(id)}
             className={cn(
-              "w-full justify-start",
-              currentView === item.id && "bg-secondary"
+              "p-1.5 rounded transition-colors",
+              currentView === id
+                ? "bg-secondary text-secondary-foreground"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
             )}
-            onClick={() => onNavigate(item.id)}
+            aria-label={label}
           >
-            {item.label}
-          </Button>
+            <Icon className="h-3.5 w-3.5" />
+          </button>
         ))}
       </nav>
     </aside>
   );
 }
 
-export default Sidebar;
+export function SubSidebar() {
+  return (
+    <aside className="w-44 border-r bg-card flex flex-col py-2 flex-shrink-0">
+      {/* Empty for now */}
+    </aside>
+  );
+}
