@@ -3,6 +3,7 @@ import { useAuthStore } from "../stores/authStore";
 import Topbar from "../components/layout/Topbar";
 import { IconSidebar } from "../components/layout/Sidebar";
 import ResizableSubSidebar from "../components/layout/ResizableSubSidebar";
+import { LayerSection } from "../components/layout/LayerSection";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -90,12 +91,14 @@ function MainPage() {
         onToggle={() => setIsSubSidebarOpen((prev) => !prev)}
       />
       <ResizableSubSidebar isOpen={isSubSidebarOpen} />
-      <div className="flex-1 flex flex-col overflow-hidden bg-[#F6F8FA]">
-        <Topbar onAccountClick={() => setCurrentView("account")} />
-        <main className="flex-1 bg-[#FFFFFF] p-6 overflow-y-auto">
-          {renderContent()}
-        </main>
-      </div>
+      <LayerSection
+        className="flex-1 bg-[#F6F8FA]"
+        header={<Topbar onAccountClick={() => setCurrentView("account")} />}
+        headerClassName="bg-[#FCFCFC]"
+        contentClassName="bg-[#FFFFFF] overflow-hidden"
+      >
+        <main className="flex-1 p-6 overflow-y-auto">{renderContent()}</main>
+      </LayerSection>
     </div>
   );
 }
