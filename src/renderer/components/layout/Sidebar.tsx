@@ -22,7 +22,7 @@ export function IconSidebar({
   onToggle,
 }: IconSidebarProps) {
   return (
-    <aside className="w-12 border-r bg-[#FFFFFF] flex flex-col flex-shrink-0">
+    <aside className="w-12 bg-[#FFFFFF] flex flex-col flex-shrink-0">
       <div className="h-8 border-b flex items-center justify-center bg-[#FCFCFC]">
         <button
           onClick={onToggle}
@@ -36,7 +36,7 @@ export function IconSidebar({
           )}
         </button>
       </div>
-      <nav className="flex-1 flex flex-col items-center gap-1 py-2">
+      <nav className="flex-1 flex flex-col items-center gap-1 py-2 border-r">
         {sidebarMenuItems.map(({ id, icon: Icon, label }) => (
           <button
             key={id}
@@ -64,7 +64,7 @@ interface SubSidebarProps {
 export function SubSidebar({ width }: SubSidebarProps) {
   return (
     <aside
-      className="border-r bg-[#FFFFFF] flex flex-col flex-shrink-0"
+      className="bg-[#FFFFFF] flex flex-col flex-shrink-0 overflow-hidden transition-[width] duration-200 ease-out"
       style={{ width }}
     >
       <div className="h-8 border-b flex items-center px-3 text-xs text-muted-foreground bg-[#FCFCFC]">

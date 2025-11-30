@@ -90,32 +90,30 @@ function MainPage() {
         isExpanded={isSubSidebarOpen}
         onToggle={() => setIsSubSidebarOpen((prev) => !prev)}
       />
+      <SubSidebar width={isSubSidebarOpen ? subSidebarWidth : 0} />
       {isSubSidebarOpen && (
-        <>
-          <SubSidebar width={subSidebarWidth} />
-          <ResizeHandle
-            onMouseDown={(event) => {
-              event.preventDefault();
+        <ResizeHandle
+          onMouseDown={(event) => {
+            event.preventDefault();
 
-              const startX = event.clientX;
-              const startWidth = subSidebarWidth;
+            const startX = event.clientX;
+            const startWidth = subSidebarWidth;
 
-              const handleMouseMove = (moveEvent: MouseEvent) => {
-                const delta = moveEvent.clientX - startX;
-                const nextWidth = Math.max(160, startWidth + delta);
-                setSubSidebarWidth(nextWidth);
-              };
+            const handleMouseMove = (moveEvent: MouseEvent) => {
+              const delta = moveEvent.clientX - startX;
+              const nextWidth = Math.max(160, startWidth + delta);
+              setSubSidebarWidth(nextWidth);
+            };
 
-              const handleMouseUp = () => {
-                window.removeEventListener("mousemove", handleMouseMove);
-                window.removeEventListener("mouseup", handleMouseUp);
-              };
+            const handleMouseUp = () => {
+              window.removeEventListener("mousemove", handleMouseMove);
+              window.removeEventListener("mouseup", handleMouseUp);
+            };
 
-              window.addEventListener("mousemove", handleMouseMove);
-              window.addEventListener("mouseup", handleMouseUp);
-            }}
-          />
-        </>
+            window.addEventListener("mousemove", handleMouseMove);
+            window.addEventListener("mouseup", handleMouseUp);
+          }}
+        />
       )}
       <div className="flex-1 flex flex-col overflow-hidden bg-[#FFFFFF]">
         <Topbar onAccountClick={() => setCurrentView("account")} />
