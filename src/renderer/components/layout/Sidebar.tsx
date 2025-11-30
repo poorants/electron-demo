@@ -22,19 +22,21 @@ export function IconSidebar({
   onToggle,
 }: IconSidebarProps) {
   return (
-    <aside className="w-12 border-r bg-card flex flex-col py-2 flex-shrink-0">
-      <button
-        onClick={onToggle}
-        className="mx-auto mb-2 p-1.5 rounded hover:bg-muted transition-colors"
-        aria-label="Toggle sidebar"
-      >
-        {isExpanded ? (
-          <PanelLeftClose className="h-3.5 w-3.5" />
-        ) : (
-          <PanelRightOpen className="h-3.5 w-3.5" />
-        )}
-      </button>
-      <nav className="flex flex-col items-center gap-1">
+    <aside className="w-12 border-r bg-card flex flex-col flex-shrink-0">
+      <div className="h-8 border-b flex items-center justify-center">
+        <button
+          onClick={onToggle}
+          className="p-1.5 rounded hover:bg-muted transition-colors"
+          aria-label="Toggle sidebar"
+        >
+          {isExpanded ? (
+            <PanelLeftClose className="h-3.5 w-3.5" />
+          ) : (
+            <PanelRightOpen className="h-3.5 w-3.5" />
+          )}
+        </button>
+      </div>
+      <nav className="flex-1 flex flex-col items-center gap-1 py-2">
         {sidebarMenuItems.map(({ id, icon: Icon, label }) => (
           <button
             key={id}
@@ -62,10 +64,13 @@ interface SubSidebarProps {
 export function SubSidebar({ width }: SubSidebarProps) {
   return (
     <aside
-      className="border-r bg-card flex flex-col py-2 flex-shrink-0"
+      className="border-r bg-card flex flex-col flex-shrink-0"
       style={{ width }}
     >
-      {/* Empty for now */}
+      <div className="h-8 border-b flex items-center px-3 text-xs text-muted-foreground">
+        {/* Reserved for future sub-sidebar header content */}
+      </div>
+      <div className="flex-1" />
     </aside>
   );
 }

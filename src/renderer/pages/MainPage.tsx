@@ -102,10 +102,7 @@ function MainPage() {
 
               const handleMouseMove = (moveEvent: MouseEvent) => {
                 const delta = moveEvent.clientX - startX;
-                const nextWidth = Math.min(
-                  360,
-                  Math.max(160, startWidth + delta)
-                );
+                const nextWidth = Math.max(160, startWidth + delta);
                 setSubSidebarWidth(nextWidth);
               };
 
