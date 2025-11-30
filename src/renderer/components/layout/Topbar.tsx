@@ -46,10 +46,10 @@ function Topbar({ onAccountClick }: TopbarProps) {
             </Avatar>
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuContent align="end" className="w-44 p-1">
           <DropdownMenuLabel className="font-normal">
-            <div className="flex items-center gap-3">
-              <Avatar className="h-6 w-6">
+            <div className="flex items-center gap-2">
+              <Avatar className="h-5 w-5">
                 <AvatarImage
                   src={user?.profile.picture}
                   alt={user?.profile.name}
@@ -59,23 +59,26 @@ function Topbar({ onAccountClick }: TopbarProps) {
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col">
-                <p className="text-xs font-medium leading-none">
+                <p className="text-[11px] font-medium leading-tight">
                   {user?.profile.name}
                 </p>
-                <p className="text-[10px] leading-none text-muted-foreground">
+                <p className="text-[10px] leading-tight text-muted-foreground">
                   {user?.profile.email}
                 </p>
               </div>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={onAccountClick}>
+          <DropdownMenuItem
+            onClick={onAccountClick}
+            className="text-[11px] py-1.5"
+          >
             계정 정보 보기
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={handleLogout}
-            className="text-destructive focus:text-destructive"
+            className="text-destructive focus:text-destructive text-[11px] py-1.5"
           >
             로그아웃
           </DropdownMenuItem>

@@ -26,13 +26,13 @@ export function IconSidebar({
       <div className="h-8 border-b flex items-center justify-center bg-[#FCFCFC]">
         <button
           onClick={onToggle}
-          className="p-1.5 rounded hover:bg-muted transition-colors"
+          className="p-[6px] rounded hover:bg-muted transition-colors"
           aria-label="Toggle sidebar"
         >
           {isExpanded ? (
-            <PanelLeftClose className="h-3.5 w-3.5" />
+            <PanelLeftClose className="h-[18px] w-[18px] text-muted-foreground/80" />
           ) : (
-            <PanelRightOpen className="h-3.5 w-3.5" />
+            <PanelRightOpen className="h-[18px] w-[18px] text-muted-foreground/80" />
           )}
         </button>
       </div>
@@ -42,14 +42,14 @@ export function IconSidebar({
             key={id}
             onClick={() => onNavigate(id)}
             className={cn(
-              "p-1.5 rounded transition-colors",
+              "p-[6px] rounded transition-colors",
               currentView === id
-                ? "bg-secondary text-secondary-foreground"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                ? "bg-secondary text-secondary-foreground/80"
+                : "text-muted-foreground/80 hover:bg-muted hover:text-muted-foreground"
             )}
             aria-label={label}
           >
-            <Icon className="h-3.5 w-3.5" />
+            <Icon className="h-[18px] w-[18px]" />
           </button>
         ))}
       </nav>
@@ -57,16 +57,9 @@ export function IconSidebar({
   );
 }
 
-interface SubSidebarProps {
-  width: number;
-}
-
-export function SubSidebar({ width }: SubSidebarProps) {
+export function SubSidebar() {
   return (
-    <aside
-      className="bg-[#F6F8FA] flex flex-col flex-shrink-0 overflow-hidden transition-[width] duration-200 ease-out"
-      style={{ width }}
-    >
+    <aside className="w-full h-full bg-[#F6F8FA] flex flex-col">
       <div className="h-8 border-b flex items-center px-3 text-xs text-muted-foreground bg-[#FCFCFC]">
         {/* Reserved for future sub-sidebar header content */}
       </div>

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useAuthStore } from "../stores/authStore";
 import Topbar from "../components/layout/Topbar";
-import { IconSidebar, SubSidebar } from "../components/layout/Sidebar";
-import ResizeHandle from "../components/layout/ResizeHandle";
+import { IconSidebar } from "../components/layout/Sidebar";
+import ResizableSubSidebar from "../components/layout/ResizableSubSidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -12,7 +12,6 @@ function MainPage() {
   const { user } = useAuthStore();
   const [currentView, setCurrentView] = useState<ContentView>("dashboard");
   const [isSubSidebarOpen, setIsSubSidebarOpen] = useState(false);
-  const [subSidebarWidth, setSubSidebarWidth] = useState(220);
 
   const renderContent = () => {
     switch (currentView) {
@@ -90,31 +89,7 @@ function MainPage() {
         isExpanded={isSubSidebarOpen}
         onToggle={() => setIsSubSidebarOpen((prev) => !prev)}
       />
-      <SubSidebar width={isSubSidebarOpen ? subSidebarWidth : 0} />
-      {isSubSidebarOpen && (
-        <ResizeHandle
-          onMouseDown={(event) => {
-            event.preventDefault();
-
-            const startX = event.clientX;
-            const startWidth = subSidebarWidth;
-
-            const handleMouseMove = (moveEvent: MouseEvent) => {
-              const delta = moveEvent.clientX - startX;
-              const nextWidth = Math.max(160, startWidth + delta);
-              setSubSidebarWidth(nextWidth);
-            };
-
-            const handleMouseUp = () => {
-              window.removeEventListener("mousemove", handleMouseMove);
-              window.removeEventListener("mouseup", handleMouseUp);
-            };
-
-            window.addEventListener("mousemove", handleMouseMove);
-            window.addEventListener("mouseup", handleMouseUp);
-          }}
-        />
-      )}
+      <ResizableSubSidebar isOpen={isSubSidebarOpen} />
       <div className="flex-1 flex flex-col overflow-hidden bg-[#F6F8FA]">
         <Topbar onAccountClick={() => setCurrentView("account")} />
         <main className="flex-1 bg-[#FFFFFF] p-6 overflow-y-auto">
