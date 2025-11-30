@@ -13,9 +13,9 @@ Thumbs.db
 .idea/
 
 # Build / cache
-.dist/
 dist/
 out/
+release/
 coverage/
 *.log
 
@@ -27,3 +27,8 @@ session.json
 /google-oauth-config.json
 .env
 .env.local
+
+# Legacy files (to be removed)
+/main.js
+/preload.js
+/renderer/
