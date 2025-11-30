@@ -31,7 +31,7 @@ function Topbar({ onAccountClick }: TopbarProps) {
   };
 
   return (
-    <header className="h-8 flex items-center justify-between px-3 flex-shrink-0 text-foreground">
+    <header className="h-8 flex items-center justify-between px-3 flex-shrink-0 text-foreground bg-[#FCFCFC] border-b border-border">
       <div className="font-semibold text-sm tracking-tight">Demo App</div>
 
       <DropdownMenu>

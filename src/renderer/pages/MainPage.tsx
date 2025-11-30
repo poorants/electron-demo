@@ -83,7 +83,7 @@ function MainPage() {
   };
 
   return (
-    <div className="h-screen flex bg-background">
+    <div className="h-screen flex bg-[#F6F8FA]">
       <IconSidebar
         currentView={currentView}
         onNavigate={setCurrentView}
@@ -117,9 +117,9 @@ function MainPage() {
           />
         </>
       )}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden bg-[#FFFFFF]">
         <Topbar onAccountClick={() => setCurrentView("account")} />
-        <main className="flex-1 bg-muted/40 p-6 overflow-y-auto">
+        <main className="flex-1 bg-[#F6F8FA] p-6 overflow-y-auto">
           {renderContent()}
         </main>
       </div>

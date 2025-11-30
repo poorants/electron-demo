@@ -22,8 +22,8 @@ export function IconSidebar({
   onToggle,
 }: IconSidebarProps) {
   return (
-    <aside className="w-12 border-r bg-card flex flex-col flex-shrink-0">
-      <div className="h-8 border-b flex items-center justify-center">
+    <aside className="w-12 border-r bg-[#FFFFFF] flex flex-col flex-shrink-0">
+      <div className="h-8 border-b flex items-center justify-center bg-[#FCFCFC]">
         <button
           onClick={onToggle}
           className="p-1.5 rounded hover:bg-muted transition-colors"
@@ -64,10 +64,10 @@ interface SubSidebarProps {
 export function SubSidebar({ width }: SubSidebarProps) {
   return (
     <aside
-      className="border-r bg-card flex flex-col flex-shrink-0"
+      className="border-r bg-[#FFFFFF] flex flex-col flex-shrink-0"
       style={{ width }}
     >
-      <div className="h-8 border-b flex items-center px-3 text-xs text-muted-foreground">
+      <div className="h-8 border-b flex items-center px-3 text-xs text-muted-foreground bg-[#FCFCFC]">
         {/* Reserved for future sub-sidebar header content */}
       </div>
       <div className="flex-1" />
