@@ -1,5 +1,13 @@
-import { useState, useRef, useEffect } from "react";
 import { useAuthStore } from "../../stores/authStore";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface TopbarProps {
   onAccountClick: () => void;
@@ -7,76 +15,62 @@ interface TopbarProps {
 
 function Topbar({ onAccountClick }: TopbarProps) {
   const { user, logout } = useAuthStore();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setDropdownOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
-
-  const handleAccountClick = () => {
-    setDropdownOpen(false);
-    onAccountClick();
-  };
 
   const handleLogout = async () => {
-    setDropdownOpen(false);
     await logout();
   };
 
+  const getInitials = (name?: string) => {
+    if (!name) return "U";
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
-    <header className="h-14 bg-gray-800 text-white flex items-center justify-between px-5 flex-shrink-0">
+    <header className="h-14 bg-primary text-primary-foreground flex items-center justify-between px-5 flex-shrink-0">
       <div className="font-bold text-lg">Demo App</div>
 
-      <div className="relative" ref={dropdownRef}>
-        <button
-          onClick={() => setDropdownOpen(!dropdownOpen)}
-          className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-white/10 transition-colors"
-        >
-          {user?.profile.picture && (
-            <img
-              src={user.profile.picture}
-              alt="avatar"
-              className="w-8 h-8 rounded-full"
-            />
-          )}
-          <span className="text-sm font-medium">{user?.profile.name}</span>
-        </button>
-
-        {dropdownOpen && (
-          <div className="absolute top-11 right-0 bg-white rounded-lg shadow-lg min-w-[220px] overflow-hidden z-50">
-            <div className="px-4 py-3 border-b border-gray-200">
-              <div className="font-semibold text-gray-900 text-sm">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button className="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-white/10 transition-colors outline-none">
+            <Avatar className="h-8 w-8">
+              <AvatarImage
+                src={user?.profile.picture}
+                alt={user?.profile.name}
+              />
+              <AvatarFallback>{getInitials(user?.profile.name)}</AvatarFallback>
+            </Avatar>
+            <span className="text-sm font-medium">{user?.profile.name}</span>
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuLabel className="font-normal">
+            <div className="flex flex-col space-y-1">
+              <p className="text-sm font-medium leading-none">
                 {user?.profile.name}
-              </div>
-              <div className="text-xs text-gray-500 mt-0.5">
+              </p>
+              <p className="text-xs leading-none text-muted-foreground">
                 {user?.profile.email}
-              </div>
+              </p>
             </div>
-            <button
-              onClick={handleAccountClick}
-              className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-            >
-              계정 정보 보기
-            </button>
-            <button
-              onClick={handleLogout}
-              className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-gray-50 transition-colors"
-            >
-              로그아웃
-            </button>
-          </div>
-        )}
-      </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={onAccountClick}>
+            계정 정보 보기
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={handleLogout}
+            className="text-destructive focus:text-destructive"
+          >
+            로그아웃
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </header>
   );
 }

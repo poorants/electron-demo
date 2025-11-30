@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useAuthStore } from "../stores/authStore";
 import Topbar from "../components/layout/Topbar";
 import Sidebar from "../components/layout/Sidebar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type ContentView = "dashboard" | "settings" | "account";
 
@@ -13,54 +15,65 @@ function MainPage() {
     switch (currentView) {
       case "account":
         return (
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              계정 정보
-            </h2>
-            <div className="bg-white p-5 rounded-lg shadow-sm max-w-md">
-              <div className="flex items-center gap-4 mb-4">
-                {user?.profile.picture && (
-                  <img
-                    src={user.profile.picture}
-                    alt="avatar"
-                    className="w-16 h-16 rounded-full"
-                  />
-                )}
-                <div>
-                  <div className="font-semibold text-lg">
-                    {user?.profile.name}
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">계정 정보</h2>
+            <Card className="max-w-md">
+              <CardHeader>
+                <div className="flex items-center gap-4">
+                  <Avatar className="h-16 w-16">
+                    <AvatarImage
+                      src={user?.profile.picture}
+                      alt={user?.profile.name}
+                    />
+                    <AvatarFallback className="text-lg">
+                      {user?.profile.name?.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <CardTitle>{user?.profile.name}</CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      {user?.profile.email}
+                    </p>
                   </div>
-                  <div className="text-gray-500 text-sm">
-                    {user?.profile.email}
-                  </div>
                 </div>
-              </div>
-              <div className="text-sm text-gray-600 space-y-1">
-                <div>
-                  <strong>Google ID:</strong> {user?.profile.id}
+              </CardHeader>
+              <CardContent className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Google ID</span>
+                  <span className="font-mono text-xs">{user?.profile.id}</span>
                 </div>
-                <div>
-                  <strong>이메일 인증:</strong>{" "}
-                  {user?.profile.verified_email ? "완료" : "미완료"}
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">이메일 인증</span>
+                  <span>
+                    {user?.profile.verified_email ? "완료" : "미완료"}
+                  </span>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         );
       case "settings":
         return (
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">설정</h2>
-            <p className="text-gray-500">설정 페이지입니다.</p>
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">설정</h2>
+            <Card className="max-w-md">
+              <CardContent className="pt-6">
+                <p className="text-muted-foreground">설정 페이지입니다.</p>
+              </CardContent>
+            </Card>
           </div>
         );
       default:
         return (
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              대시보드
-            </h2>
-            <p className="text-gray-500">여기에 컨텐츠가 표시됩니다.</p>
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">대시보드</h2>
+            <Card>
+              <CardContent className="pt-6">
+                <p className="text-muted-foreground">
+                  여기에 컨텐츠가 표시됩니다.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         );
     }
@@ -71,7 +84,7 @@ function MainPage() {
       <Topbar onAccountClick={() => setCurrentView("account")} />
       <div className="flex-1 flex overflow-hidden">
         <Sidebar currentView={currentView} onNavigate={setCurrentView} />
-        <main className="flex-1 bg-gray-100 p-6 overflow-y-auto">
+        <main className="flex-1 bg-muted/40 p-6 overflow-y-auto">
           {renderContent()}
         </main>
       </div>
