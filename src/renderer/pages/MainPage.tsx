@@ -115,9 +115,9 @@ function MainPage() {
           }}
         />
       )}
-      <div className="flex-1 flex flex-col overflow-hidden bg-[#FFFFFF]">
+      <div className="flex-1 flex flex-col overflow-hidden bg-[#F6F8FA]">
         <Topbar onAccountClick={() => setCurrentView("account")} />
-        <main className="flex-1 bg-[#F6F8FA] p-6 overflow-y-auto">
+        <main className="flex-1 bg-[#FFFFFF] p-6 overflow-y-auto">
           {renderContent()}
         </main>
       </div>

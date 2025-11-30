@@ -22,7 +22,7 @@ export function IconSidebar({
   onToggle,
 }: IconSidebarProps) {
   return (
-    <aside className="w-12 bg-[#FFFFFF] flex flex-col flex-shrink-0">
+    <aside className="w-12 bg-[#F6F8FA] flex flex-col flex-shrink-0">
       <div className="h-8 border-b flex items-center justify-center bg-[#FCFCFC]">
         <button
           onClick={onToggle}
@@ -64,7 +64,7 @@ interface SubSidebarProps {
 export function SubSidebar({ width }: SubSidebarProps) {
   return (
     <aside
-      className="bg-[#FFFFFF] flex flex-col flex-shrink-0 overflow-hidden transition-[width] duration-200 ease-out"
+      className="bg-[#F6F8FA] flex flex-col flex-shrink-0 overflow-hidden transition-[width] duration-200 ease-out"
       style={{ width }}
     >
       <div className="h-8 border-b flex items-center px-3 text-xs text-muted-foreground bg-[#FCFCFC]">
