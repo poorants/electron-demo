@@ -1,0 +1,12 @@
+{
+  "name": "electron-google-login-demo",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^31.0.0",
+    "googleapis": "^131.0.0"
+  }
+}
