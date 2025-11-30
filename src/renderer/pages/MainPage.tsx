@@ -4,7 +4,7 @@ import Topbar from "../components/layout/Topbar";
 import Sidebar from "../components/layout/Sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import ResizeHandle from "../components/layout/ResizeHandle";
 
 type ContentView = "dashboard" | "settings" | "account";
 
@@ -13,7 +13,6 @@ function MainPage() {
   const [currentView, setCurrentView] = useState<ContentView>("dashboard");
   const [sidebarWidth, setSidebarWidth] = useState(240);
   const [isResizing, setIsResizing] = useState(false);
-  const [isHandleHovered, setIsHandleHovered] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -116,20 +115,7 @@ function MainPage() {
           onNavigate={setCurrentView}
           width={sidebarWidth}
         />
-        <div className="relative flex-shrink-0">
-          <div
-            className="absolute -left-3 top-0 bottom-0 w-6 cursor-col-resize"
-            onMouseDown={() => setIsResizing(true)}
-            onMouseEnter={() => setIsHandleHovered(true)}
-            onMouseLeave={() => setIsHandleHovered(false)}
-          />
-          <span
-            className={cn(
-              "block h-full transition-all duration-150 bg-border",
-              isHandleHovered ? "w-[6px] bg-neutral-900" : "w-px"
-            )}
-          />
-        </div>
+        <ResizeHandle onMouseDown={() => setIsResizing(true)} />
         <main className="flex-1 bg-muted/40 p-6 overflow-y-auto">
           {renderContent()}
         </main>
